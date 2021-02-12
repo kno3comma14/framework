@@ -30,7 +30,7 @@
         filename               (string/replace migration-name #"-" "_")
         migrations-folder-path (impl.migratus/get-migrations-folder-path config)
         absolute-path          (str migrations-folder-path "/" filename ".clj")
-        namespace              (str "framework.db.migration-files." migration-name)
+        namespace              (str "migrations." migration-name)
         namespace-content      (format content-clojure-file namespace)]
     (create-clojure-file absolute-path namespace-content)
     (insert-content-migratus-file migration-dir migration-name namespace)))
