@@ -116,18 +116,22 @@
                      component/start ~(fn [this]
                                         (assoc this :ring-router (ring/router routes)))}))))
 
-(defn system
-  [{:framework.db.storage/keys [postgresql]
-    :framework.app/keys        [web-server ring]}]
-  (let [system         (component/system-map :db (db.storage/postgresql postgresql)
-                                             :router (make-router)
-                                             :app (make-app ring)
-                                             :web-server (make-web-server web-server))
-        dependency-map {:app        [:router :db]
-                        :web-server [:app]}]
-    (component/system-using system dependency-map)))
+(defn env->system
+  [{:framework.db/keys  [storage]
+    :framework.app/keys [web-server ring]}]
+  (component/system-map :db (db.storage/postgresql storage)
+                        :router (make-router)
+                        :app (make-app ring)
+                        :web-server (make-web-server web-server)))
+
+(def dependency-map {:app        [:router :db]
+                     :web-server [:app]})
 
 (defn -main
   [& _args]
   (let [env (load-env)]
-    (component/start (system env))))
+    (-> env
+        env->system
+        (component/system-using dependency-map)
+        component/start)))
+
