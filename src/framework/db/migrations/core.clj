@@ -1,7 +1,9 @@
 (ns framework.db.migrations.core
+  (:refer-clojure :exclude [reset!])
   (:require
     [clojure.java.io :as io]
     [clojure.string :as string]
+    [config.core :refer [load-env]]
     [migratus.core :as migratus]
     [migratus.migrations :as migrations]
     [migratus.protocols :as proto]
@@ -51,7 +53,7 @@
       (.createNewFile (io/file migration-dir mig-file)))
     [migration-name migration-dir]))
 
-(defn create
+(defn create-impl
   [env name]
   (let [[migration-name migration-dir] (migratus-create env name)
         filename                       (string/replace migration-name #"-" "_")
@@ -86,3 +88,19 @@
   (-> env
       migration-cfg
       migratus/reset))
+
+(defn create!
+  [name]
+  (create-impl (migration-cfg (load-env)) name))
+
+(defn migrate!
+  []
+  (migrate (migration-cfg (load-env))))
+
+(defn rollback-last!
+  []
+  (rollback-last (migration-cfg (load-env))))
+
+(defn reset!
+  []
+  (reset (migration-cfg (load-env))))
