@@ -1,5 +1,5 @@
 {:framework.db/storage {:port     5432
-                        :dbname   "controllers"
+                        :dbname   "todoapp"
                         :host     "localhost"
                         :dbtype   "postgresql"
                         :user     "postgres"
