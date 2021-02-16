@@ -27,3 +27,18 @@ FIXME: description
     
     curl -H "Authorization: Basic YWxhZGRpbjpvcGVuc2VzYW1l" http://localhost:3000/wrong
     Not Found
+
+## Migrations
+
+### Create migration 
+Creates two files (edn and clj) in src/db
+    lein migrations.create question
+
+### Apply migrations
+    lein migrations.migrate
+
+### Rollback last migration
+    lein migrations.rollback-last
+
+### Reset all migrations
+    lein migrations.reset

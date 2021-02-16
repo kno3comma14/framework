@@ -17,6 +17,7 @@
 
 (defn migrate
   []
+      (println :migrate (migration-cfg (config/edn)))
   (migratus/migrate (migration-cfg (config/edn))))
 
 (defn rollback-last

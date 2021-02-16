@@ -6,7 +6,8 @@
                                    :password "test"}
 
  :framework.db.storage/migration {:store :database
-                                  :migration-dir "resources/migrations"
+                                  :parent-migration-dir "src/db"
+                                  :migration-dir        "migrations"
                                   :init-in-transaction? false
                                   :migration-table-name "migrations"}
  }
