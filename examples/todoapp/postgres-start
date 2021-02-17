@@ -1,0 +1,5 @@
+#!/bin/bash
+docker-compose -f docker-compose.yml down -v
+docker volume rm todoapp_db-data >> /dev/null 2>&1
+docker-compose -f docker-compose.yml up --no-start
+docker-compose -f docker-compose.yml start
