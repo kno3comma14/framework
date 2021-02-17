@@ -32,6 +32,7 @@ FIXME: description
 
 ### Create migration 
 Creates two files (edn and clj) in src/db
+
     lein migrations.create question
 
 ### Apply migrations
