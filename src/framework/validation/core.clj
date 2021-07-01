@@ -15,7 +15,7 @@
     (m/validate schema cleaned-request-map)))
 
 (defn explain
-  "Explain the reason of a failure in the validation process"
+  "Explains the reason of a failure in the validation process"
   [schema request-map & humanized]
   (let [cleaned-request-map (clean-request-map request-map)
         result-explanation (-> schema (m/explain cleaned-request-map))]
